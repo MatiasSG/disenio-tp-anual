@@ -92,6 +92,31 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>disenio_tpDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="disenio_tpDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>disenio_tpDataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="disenio_tpDataSet3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>disenio_tpDataSet3.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="disenio_tpDataSet4.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>disenio_tpDataSet4.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="disenio_tpDataSet5.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>disenio_tpDataSet5.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="disenio_tpDataSet6.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>disenio_tpDataSet6.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Estandar.cs" />
     <Compile Include="Hadicap.cs" />
     <Compile Include="generarPartido.cs">
@@ -208,6 +233,61 @@
     </None>
     <None Include="disenio_tpDataSet1.xss">
       <DependentUpon>disenio_tpDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="disenio_tpDataSet2.xsc">
+      <DependentUpon>disenio_tpDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="disenio_tpDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>disenio_tpDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="disenio_tpDataSet2.xss">
+      <DependentUpon>disenio_tpDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="disenio_tpDataSet3.xsc">
+      <DependentUpon>disenio_tpDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="disenio_tpDataSet3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>disenio_tpDataSet3.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="disenio_tpDataSet3.xss">
+      <DependentUpon>disenio_tpDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="disenio_tpDataSet4.xsc">
+      <DependentUpon>disenio_tpDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="disenio_tpDataSet4.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>disenio_tpDataSet4.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="disenio_tpDataSet4.xss">
+      <DependentUpon>disenio_tpDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="disenio_tpDataSet5.xsc">
+      <DependentUpon>disenio_tpDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="disenio_tpDataSet5.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>disenio_tpDataSet5.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="disenio_tpDataSet5.xss">
+      <DependentUpon>disenio_tpDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="disenio_tpDataSet6.xsc">
+      <DependentUpon>disenio_tpDataSet6.xsd</DependentUpon>
+    </None>
+    <None Include="disenio_tpDataSet6.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>disenio_tpDataSet6.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="disenio_tpDataSet6.xss">
+      <DependentUpon>disenio_tpDataSet6.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

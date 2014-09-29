@@ -4,7 +4,9 @@ GO
 CREATE SCHEMA TP_DISENIO;
 GO	
 
-
+-------------------------------------------
+--Drop de Tablas creadas
+-------------------------------------------
 DROP TABLE TP_DISENIO.Inscripciones
 GO
 DROP TABLE TP_DISENIO.Criticas
@@ -17,6 +19,9 @@ DROP TABLE TP_DISENIO.Partidos
 GO
 DROP TABLE TP_DISENIO.Tipo_Inscripciones
 GO
+-------------------------------------------
+--Fin de Drop Tablas creadas
+-------------------------------------------
 
 
 CREATE TABLE TP_DISENIO.Jugadores
@@ -107,6 +112,31 @@ GO
 						/*Fin de Relleno de Tablas*/
 
 
+
+
+
+
+
+-------------------------------------------
+--Drop de Procedures creados
+-------------------------------------------
+DROP PROCEDURE TP_DISENIO.alta
+GO
+DROP PROCEDURE TP_DISENIO.verificarUsuario
+GO
+DROP PROCEDURE TP_DISENIO.bajarPartido
+GO
+DROP PROCEDURE TP_DISENIO.selectInscripciones
+GO
+DROP PROCEDURE TP_DISENIO.selectJugadores
+GO
+-------------------------------------------
+--Fin de Drop de Tablas creadas
+-------------------------------------------
+
+
+
+
 			/*Inicio de Stored Procedure*/
 
 -----------------------------------
@@ -160,6 +190,115 @@ ELSE
 
 GO
 --Fin de SP Dar de alta un Jugador al sistema
+
+
+--SP Darse de baja de un Partido
+
+--------------------------------------
+--Realiza la baja lógica de un partido
+--------------------------------------
+CREATE PROCEDURE TP_DISENIO.bajarPartido
+(@id_inscripcion varchar(10))
+AS
+UPDATE TP_DISENIO.Inscripciones 
+SET activo=0
+WHERE id_inscripcion=@id_inscripcion
+GO
+-------------------------------------
+--Fin de SP de baja de un Partido
+-------------------------------------
+
+
+---------------------------------------
+--SP TRAE TODAS LAS INSCRIPCIONES
+---------------------------------------
+CREATE PROCEDURE TP_DISENIO.selectInscripciones
+(@id_user varchar(10))
+AS
+SELECT I.id_user as Usuario,I.fecha_hora_partido as Fecha_Partido,P.nombre_partido as Nombre_Partido
+FROM TP_DISENIO.Inscripciones as I
+JOIN TP_DISENIO.Partidos as P ON P.fecha_hora_partido=I.fecha_hora_partido
+WHERE id_user=@id_user
+GO
+----------------------------------------
+--Fin de SP trae todas las Inscripciones
+----------------------------------------
+
+----------------------------------------
+--SP da de baja 
+
+
+
+
+----------------------------------------
+--SP Trae todos los jugadores 
+--Trae todos los jugadores que están
+--activos pero que no están incriptos
+--en el partido.
+----------------------------------------
+
+CREATE PROCEDURE TP_DISENIO.selectJugadores
+(@fecha_hora_partido datetime)
+AS
+SELECT J.id_user as Usuario, J.nombre as Nombre, J.apellido as Apellido
+FROM TP_DISENIO.Jugadores as J
+JOIN TP_DISENIO.Inscripciones as I ON J.id_user=I.id_user
+WHERE J.activo=1 AND I.fecha_hora_partido<>@fecha_hora_partido
+GO
+----------------------------------------
+--Fin de SP trae todas los jugadores
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -231,6 +370,34 @@ AS
 	WHERE id_partido=@id_partido AND activo=1
 GO
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*Devuelve la cantidad de Partidos Activos*/
 CREATE PROCEDURE TP_DISENIO.cantidadPartidos
 AS
@@ -300,6 +467,34 @@ AS
 	
 
 GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
