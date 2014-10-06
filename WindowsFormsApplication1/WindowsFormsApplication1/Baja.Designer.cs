@@ -33,6 +33,11 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tablaInscripciones = new System.Windows.Forms.DataGridView();
+            this.usuarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaPartidoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombrePartidoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.selectInscripcionesBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.disenio_tpDataSet5 = new TPDisenio2014.disenio_tpDataSet5();
             this.inscripcionesBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.disenio_tpDataSet2 = new TPDisenio2014.disenio_tpDataSet2();
             this.inscripcionesBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -49,21 +54,18 @@
             this.disenio_tpDataSet4 = new TPDisenio2014.disenio_tpDataSet4();
             this.selectInscripcionesBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.selectInscripcionesTableAdapter1 = new TPDisenio2014.disenio_tpDataSet4TableAdapters.selectInscripcionesTableAdapter();
-            this.disenio_tpDataSet5 = new TPDisenio2014.disenio_tpDataSet5();
-            this.selectInscripcionesBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.selectInscripcionesTableAdapter2 = new TPDisenio2014.disenio_tpDataSet5TableAdapters.selectInscripcionesTableAdapter();
-            this.usuarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaPartidoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombrePartidoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tablaJugadores = new System.Windows.Forms.DataGridView();
-            this.disenio_tpDataSet6 = new TPDisenio2014.disenio_tpDataSet6();
-            this.selectJugadoresBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.selectJugadoresTableAdapter = new TPDisenio2014.disenio_tpDataSet6TableAdapters.selectJugadoresTableAdapter();
             this.usuarioDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.apellidoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.selectJugadoresBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.disenio_tpDataSet6 = new TPDisenio2014.disenio_tpDataSet6();
+            this.selectJugadoresTableAdapter = new TPDisenio2014.disenio_tpDataSet6TableAdapters.selectJugadoresTableAdapter();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tablaInscripciones)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.selectInscripcionesBindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inscripcionesBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inscripcionesBindingSource)).BeginInit();
@@ -75,11 +77,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.selectInscripcionesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.selectInscripcionesBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.selectInscripcionesBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaJugadores)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.selectJugadoresBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet6)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBaja
@@ -130,6 +130,37 @@
             this.tablaInscripciones.Size = new System.Drawing.Size(345, 141);
             this.tablaInscripciones.TabIndex = 6;
             this.tablaInscripciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
+            // 
+            // usuarioDataGridViewTextBoxColumn
+            // 
+            this.usuarioDataGridViewTextBoxColumn.DataPropertyName = "Usuario";
+            this.usuarioDataGridViewTextBoxColumn.HeaderText = "Usuario";
+            this.usuarioDataGridViewTextBoxColumn.Name = "usuarioDataGridViewTextBoxColumn";
+            this.usuarioDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fechaPartidoDataGridViewTextBoxColumn
+            // 
+            this.fechaPartidoDataGridViewTextBoxColumn.DataPropertyName = "Fecha_Partido";
+            this.fechaPartidoDataGridViewTextBoxColumn.HeaderText = "Fecha_Partido";
+            this.fechaPartidoDataGridViewTextBoxColumn.Name = "fechaPartidoDataGridViewTextBoxColumn";
+            this.fechaPartidoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nombrePartidoDataGridViewTextBoxColumn
+            // 
+            this.nombrePartidoDataGridViewTextBoxColumn.DataPropertyName = "Nombre_Partido";
+            this.nombrePartidoDataGridViewTextBoxColumn.HeaderText = "Nombre_Partido";
+            this.nombrePartidoDataGridViewTextBoxColumn.Name = "nombrePartidoDataGridViewTextBoxColumn";
+            this.nombrePartidoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // selectInscripcionesBindingSource2
+            // 
+            this.selectInscripcionesBindingSource2.DataMember = "selectInscripciones";
+            this.selectInscripcionesBindingSource2.DataSource = this.disenio_tpDataSet5;
+            // 
+            // disenio_tpDataSet5
+            // 
+            this.disenio_tpDataSet5.DataSetName = "disenio_tpDataSet5";
+            this.disenio_tpDataSet5.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // inscripcionesBindingSource1
             // 
@@ -206,40 +237,9 @@
             // 
             this.selectInscripcionesTableAdapter1.ClearBeforeFill = true;
             // 
-            // disenio_tpDataSet5
-            // 
-            this.disenio_tpDataSet5.DataSetName = "disenio_tpDataSet5";
-            this.disenio_tpDataSet5.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // selectInscripcionesBindingSource2
-            // 
-            this.selectInscripcionesBindingSource2.DataMember = "selectInscripciones";
-            this.selectInscripcionesBindingSource2.DataSource = this.disenio_tpDataSet5;
-            // 
             // selectInscripcionesTableAdapter2
             // 
             this.selectInscripcionesTableAdapter2.ClearBeforeFill = true;
-            // 
-            // usuarioDataGridViewTextBoxColumn
-            // 
-            this.usuarioDataGridViewTextBoxColumn.DataPropertyName = "Usuario";
-            this.usuarioDataGridViewTextBoxColumn.HeaderText = "Usuario";
-            this.usuarioDataGridViewTextBoxColumn.Name = "usuarioDataGridViewTextBoxColumn";
-            this.usuarioDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fechaPartidoDataGridViewTextBoxColumn
-            // 
-            this.fechaPartidoDataGridViewTextBoxColumn.DataPropertyName = "Fecha_Partido";
-            this.fechaPartidoDataGridViewTextBoxColumn.HeaderText = "Fecha_Partido";
-            this.fechaPartidoDataGridViewTextBoxColumn.Name = "fechaPartidoDataGridViewTextBoxColumn";
-            this.fechaPartidoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nombrePartidoDataGridViewTextBoxColumn
-            // 
-            this.nombrePartidoDataGridViewTextBoxColumn.DataPropertyName = "Nombre_Partido";
-            this.nombrePartidoDataGridViewTextBoxColumn.HeaderText = "Nombre_Partido";
-            this.nombrePartidoDataGridViewTextBoxColumn.Name = "nombrePartidoDataGridViewTextBoxColumn";
-            this.nombrePartidoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // tablaJugadores
             // 
@@ -258,20 +258,6 @@
             this.tablaJugadores.ReadOnly = true;
             this.tablaJugadores.Size = new System.Drawing.Size(342, 128);
             this.tablaJugadores.TabIndex = 7;
-            // 
-            // disenio_tpDataSet6
-            // 
-            this.disenio_tpDataSet6.DataSetName = "disenio_tpDataSet6";
-            this.disenio_tpDataSet6.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // selectJugadoresBindingSource
-            // 
-            this.selectJugadoresBindingSource.DataMember = "selectJugadores";
-            this.selectJugadoresBindingSource.DataSource = this.disenio_tpDataSet6;
-            // 
-            // selectJugadoresTableAdapter
-            // 
-            this.selectJugadoresTableAdapter.ClearBeforeFill = true;
             // 
             // usuarioDataGridViewTextBoxColumn1
             // 
@@ -294,6 +280,20 @@
             this.apellidoDataGridViewTextBoxColumn.Name = "apellidoDataGridViewTextBoxColumn";
             this.apellidoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // selectJugadoresBindingSource
+            // 
+            this.selectJugadoresBindingSource.DataMember = "selectJugadores";
+            this.selectJugadoresBindingSource.DataSource = this.disenio_tpDataSet6;
+            // 
+            // disenio_tpDataSet6
+            // 
+            this.disenio_tpDataSet6.DataSetName = "disenio_tpDataSet6";
+            this.disenio_tpDataSet6.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // selectJugadoresTableAdapter
+            // 
+            this.selectJugadoresTableAdapter.ClearBeforeFill = true;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -315,9 +315,11 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnBaja);
             this.Name = "Baja";
-            this.Text = "Baja";
+            this.Text = "++";
             this.Load += new System.EventHandler(this.Baja_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tablaInscripciones)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.selectInscripcionesBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inscripcionesBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inscripcionesBindingSource)).EndInit();
@@ -329,11 +331,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.selectInscripcionesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.selectInscripcionesBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.selectInscripcionesBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaJugadores)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.selectJugadoresBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.disenio_tpDataSet6)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

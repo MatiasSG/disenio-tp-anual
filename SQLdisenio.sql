@@ -19,6 +19,8 @@ DROP TABLE TP_DISENIO.Partidos
 GO
 DROP TABLE TP_DISENIO.Tipo_Inscripciones
 GO
+DROP TABLE TP_DISENIO.Criterios
+GO
 -------------------------------------------
 --Fin de Drop Tablas creadas
 -------------------------------------------
@@ -31,6 +33,7 @@ CREATE TABLE TP_DISENIO.Jugadores
 	[nombre][varchar](20),
 	[apellido][varchar](20),
 	[fecha_nac][datetime],
+	[handicap][int],
 	[activo][bit],
 CONSTRAINT PK_Jugadores PRIMARY KEY (id_user)
 );
@@ -93,6 +96,14 @@ CREATE TABLE TP_DISENIO.Tipo_Inscripciones
 CONSTRAINT PK_Tipo_Inscripciones PRIMARY KEY (cod_inscripcion)
 );
 GO
+
+CREATE TABLE TP_DISENIO.criterios
+(
+	[cod_criterio][int],
+	[descripcion][varchar](20)
+CONSTRAINT PK_Criterio PRIMARY KEY (cod_criterio)
+);
+GO
 						/*Fin de Creación de Tablas*/
 						
 						
@@ -129,6 +140,8 @@ GO
 DROP PROCEDURE TP_DISENIO.selectInscripciones
 GO
 DROP PROCEDURE TP_DISENIO.selectJugadores
+GO
+DROP PROCEDURE TP_DISENIO.cantidadJugadores
 GO
 -------------------------------------------
 --Fin de Drop de Tablas creadas
@@ -207,6 +220,114 @@ GO
 -------------------------------------
 --Fin de SP de baja de un Partido
 -------------------------------------
+/*SP Cuenta Cantidad de Jugadores*/
+CREATE PROCEDURE TP_DISENIO.cantidadJugadores
+(@fecha_hora_partido DATETIME)
+AS
+DECLARE @cantidadDeJugadores int
+SET @cantidadDeJugadores=(SELECT COUNT(*) FROM TP_DISENIO.Inscripciones as I WHERE I.fecha_hora_partido=@fecha_hora_partido) 
+RETURN @cantidadDeJugadores
+GO
+
+/*SP cantidad de Jugadores por código de inscripción*/
+--------------------------------------------
+--cod_inscripcion : Tipo de Inscripcion
+--1                 Estandar 
+--2                 Solidario
+--3					Condicional
+
+CREATE PROCEDURE TP_DISENIO.cantidadJugadoresSegunCodigo
+(@fecha_hora_partido datetime,@cod_inscripcion int)
+AS
+SELECT COUNT (cod_inscripcion) 
+FROM TP_DISENIO.Inscripciones as I
+WHERE I.fecha_hora_partido=@fecha_hora_partido AND cod_inscripcion=1 
+GROUP BY cod_inscripcion
+HAVING cod_inscripcion=@cod_inscripcion
+GO
+
+/*SP Cantidad de Jugadores Estandar*/
+
+---------------------------------------------------
+--SP para la inscripción de un jugador a un partido
+---------------------------------------------------
+CREATE PROCEDURE TP_DISENIO.incsribirseAUnPartido
+(@id_user varchar(10),@fecha_hora_partido datetime,@cod_inscripcion int)
+AS 
+DECLARE @cantidadDeJugadores int
+EXECUTE TP_DISENIO.cantidadJugadores @fecha_hora_partido 
+SET @cantidadDeJugadores= (EXECUTE TP_DISENIO.cantidadJugadores @fecha_hora_partido)
+IF(EXECUTE TP_DISENIO.cantidadJugadores @fecha_hora_partido<10)
+	BEGIN
+
+	END
+ELSE
+	BEGIN
+	
+	END
+GO
+
+EXECUTE TP_DISENIO.inscribirseAUnPartido
+--Si se escribe como estandar, Si hay lugar se inscribe 
+--Si son todos estandar no puede inscribirse
+--Si no hay lugar preguntar si son todos estandar
+--Si no son todos estandar verificar reemplazar a un solidario
+--Si no hay solidarios reemplaza condicionales
+
+--Si se inscribe como Solidario, hay lugar se inscribe
+--Si no hay lugar preguntar si hay algún condicional
+--Si hay reemplazarlo
+--Si no hay condicional no hay lugar y no se puede inscribir
+
+
+--Si se inscribe como Condicional tiene que preguntar si hay espacio
+--Sino no se puede anotar
+
+
+
+
+---------------------------------------------------
+--Fin de DP de inscripción
+---------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------
+--SP Cada vez que un jugador se baje de un partido se le debe agregar una infracción si no ofrece reemplazante.
+--------------------------------------------------------------------------------------------------------------
+CREATE PROCEDURE TP_DISENIO.crearInfraccionDandoDeBaja
+(@id_user varchar(10),@id_inscripcion varchar(10))
+
+AS
+DECLARE @fecha DATETIME
+	EXECUTE TP_DISENIO.bajarPartido @id_inscripcion
+	SET @fecha=(SELECT I.fecha_hora_partido FROM TP_DISENIO.Inscripciones as I WHERE I.id_inscripcion=@id_inscripcion)
+	IF(@id_user=NULL)
+	BEGIN
+		INSERT INTO TP_DISENIO.Infracciones (id_user,motivo,fecha_infraccion,fecha_hora_partido) VALUES (@id_user,'No selecciona reemplazante cuando se da de baja',GETDATE(),@fecha)
+	END
+	
+GO
+----------------------------------------
+--Fin de SP de generar infraccion
+----------------------------------------
+
+
+
+
 
 
 ---------------------------------------
@@ -226,7 +347,7 @@ GO
 
 ----------------------------------------
 --SP da de baja 
-
+----------------------------------------
 
 
 
@@ -253,14 +374,55 @@ GO
 
 
 
+--------------------------------------------------------------------------
+--SP Selecciona a los Jugadores con más de tres infracciones el útlimo mes
+--------------------------------------------------------------------------
+CREATE PROCEDURE TP_DISENIO.selectJugadoresTraicioneros
+AS
+SELECT J.id_user,J.nombre,J.apellido,COUNT(*) as CantidadInfracciones
+FROM TP_DISENIO.Jugadores as J
+JOIN TP_DISENIO.Infracciones as I ON J.id_user=I.id_user
+WHERE J.activo=1 AND MONTH(I.fecha_infraccion)=MONTH(GETDATE())
+GROUP BY J.id_user
+HAVING  COUNT(J.id_user)>3
+GO 
+---------------------------------------------------------------------------------
+--Fin de SP Selecciona a los Jugadores con más de tres infracciones el útlimo mes.
+---------------------------------------------------------------------------------
 
 
 
 
+------------------------------------------------------------------
+--SP Saber los jugadores malos, con un handicap de 5 ó menos
+------------------------------------------------------------------
+CREATE PROCEDURE TP_DISENIO.selectJugadoresMalos
+AS
+SELECT J.id_user,J.nombre, J.apellido,J.fecha_nac into #temp1
+FROM TP_DISENIO.Jugadores as J
+WHERE J.handicap>=5
+GO
 
 
+-------------------------------------------------------------------
+--Fin de SP Saber los jugadores malos, con un handicap de 5 ó menos
+-------------------------------------------------------------------
 
+CREATE TABLE #temp1 (id_user varchar(10),nombre varchar(20), apellido varchar(20),fecha_nac datetime)
+GO
 
+----------------------------------------------------------
+--SP para filtrar los jugadores malos mejorables
+----------------------------------------------------------
+CREATE PROCEDURE TP_DISENIO.selectJugadoresMalosMejorables
+AS
+SELECT *
+FROM #temp1 as temporal
+WHERE DATEDIFF(YY,temporal.fecha_nac,GETDATE())<25
+GO
+----------------------------------------------------------
+--Fin de SP para filtrar los jugadores
+----------------------------------------------------------
 
 
 
@@ -303,28 +465,20 @@ GO
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
 
 /*Da de alta un Partido*/
 CREATE PROCEDURE TP_DISENIO.altaPartido
 (@tiempoYHora datetime,@nombre varchar (20))
 AS
 INSERT INTO TP_DISENIO.Partidos
-(id_partido,fecha_hora,activo) VALUES (@tiempoYHora,@nombre,1)
+(fecha_hora_partido,nombre_partido,activo) VALUES (@tiempoYHora,@nombre,1)
 GO
+
+EXECUTE TP_DISENIO.altaPartido(2008/02/10 10:30:20:500,'PrimeraRonda')
+GO
+*/
+
 
 /*Me devuelve todos los registros de un Jugador dado el id_user*/
 CREATE PROCEDURE TP_DISENIO.buscarJugador
@@ -456,6 +610,9 @@ INTO TP_DISENIO.Jugadores
 (nombre,apellido,fecha_nac,pass,id_user,activo) VALUES(@nombre,@apellido,@fecha_nacimiento,@pass,@id_user,1)
 GO
 
+/*
+EXECUTE TP_DISENIO.altaJugador('','','','','')
+GO*/
 
 /*Ver que un jugador se pueda inscribir a un partido una sola vez*/
 CREATE PROCEDURE TP_DISENIO.bajaDeUnPartido
